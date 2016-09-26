@@ -2,9 +2,9 @@
 DLL to load from Windows NetShell. Will pop calc and execute shellcode.
 
 # Background
-It turns out Windows NetShell (netsh) allows loading of external DLLs. But you cant just load any regular DLL. For succesfull loading netsh requires the InitHelperDll entry point to exist. Once loaded, the DLL will be execute every time netsh is executed. 
+It turns out Windows NetShell (netsh) allows loading of external DLLs. But you cant just load any regular DLL. For successful loading netsh requires the InitHelperDll entry point to exist. Once loaded, the DLL will be execute every time netsh is executed. 
 
-I got the idea after reading a blogpost(1) and wanted to verify and test its usefulnes by making a PoC that executes Cobalt Strike beacon code. 
+I got the idea after reading a blogpost(1) and wanted to verify and test its usefulness by making a PoC that executes Cobalt Strike beacon code. 
 
 
 # How to use
@@ -13,12 +13,12 @@ I got the idea after reading a blogpost(1) and wanted to verify and test its use
 - Copy Release\NetshHelpderBeacon.dll to your desired location (c:\windows\system32 is the regular path for netsh DLLs)
 - run netsh add helper $PathToYourDll - should return OK and pop calc, but shellcode not yet executed
 - run netsh - should pop calc and run your shellcode
-- *Yolo mode* load (x64\)Release\NetshHelperBeacon.dll on your production machine
+- *Yolo mode*: load (x64\)Release\NetshHelperBeacon.dll on your production machine
 
 # Drawbacks
-- Currently spanws a new thread (so netsh remains usefull) but will not spawn new process. This means your shellcode will be killed once the netsh process is stopped. 
+- Currently spawns a new thread (so netsh remains useful) but will not spawn new process. This means your shellcode will be killed once the netsh process is stopped. 
 - Only loosely compliant to Microsoft netsh dll rules. For example the DLL is not registered with a GUID.
-- For persistence you need to find a way for netsh to run after reboot.
+- To make it useful for persistence you need to find a way for netsh to run after reboot.
 
 
 
